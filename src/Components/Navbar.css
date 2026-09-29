@@ -1,0 +1,348 @@
+
+/* Navbar */
+
+.shop-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+
+    background: rgba(8, 13, 32, 0.92);
+    border-bottom: 1px solid rgba(85, 112, 255, 0.35);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-inner {
+    width: 100%;
+    max-width: 1500px;
+    min-height: 76px;
+    margin: 0 auto;
+    padding: 0 6%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* Brand */
+
+.navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+
+    color: #f7f9ff;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    text-decoration: none;
+}
+
+.brand-icon {
+    width: 37px;
+    height: 37px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(92, 163, 255, 0.4);
+    border-radius: 11px;
+
+    background: rgba(52, 103, 216, 0.16);
+    color: #65b6ff;
+    font-size: 23px;
+
+    box-shadow: 0 0 20px rgba(59, 117, 255, 0.12);
+}
+
+.brand-highlight {
+    background: linear-gradient(
+        90deg,
+        #36baff,
+        #a15bff
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Navigation area */
+
+.navbar-collapse {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: 1;
+    gap: 30px;
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto;
+}
+
+/* Main navigation links */
+
+.nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+
+    padding: 11px 16px;
+    border-radius: 9px;
+
+    color: #aebcdb;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease;
+}
+
+.nav-link:hover {
+    color: #ffffff;
+    background: rgba(52, 103, 216, 0.12);
+}
+
+.nav-link.active {
+    color: #65b6ff;
+    background: rgba(52, 103, 216, 0.14);
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    bottom: 4px;
+
+    height: 2px;
+    border-radius: 2px;
+
+    background: linear-gradient(
+        90deg,
+        #36baff,
+        #a15bff
+    );
+}
+
+/* Authentication actions */
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    flex-shrink: 0;
+}
+
+.nav-login {
+    padding: 11px 17px;
+    border-radius: 9px;
+
+    color: #c0cbea;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: 0.25s ease;
+}
+
+.nav-login:hover,
+.nav-login.active {
+    color: #65b6ff;
+    background: rgba(52, 103, 216, 0.12);
+}
+
+/* Gradient sign up button */
+
+.nav-register {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 11px 18px;
+    border: 1px solid rgba(170, 187, 255, 0.35);
+    border-radius: 9px;
+
+    background: linear-gradient(
+        105deg,
+        #1685f8,
+        #4858f5 55%,
+        #9c36ed
+    );
+
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        filter 0.25s ease;
+}
+
+.nav-register:hover {
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(68, 89, 255, 0.28);
+    filter: brightness(1.1);
+}
+
+.nav-register span {
+    font-size: 16px;
+}
+
+/* Hamburger button */
+
+.navbar-toggler {
+    display: none;
+    width: 42px;
+    height: 42px;
+    padding: 10px;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    border: 1px solid #344c80;
+    border-radius: 9px;
+
+    background: rgba(7, 15, 39, 0.75);
+    cursor: pointer;
+}
+
+.navbar-toggler span {
+    width: 19px;
+    height: 2px;
+    border-radius: 2px;
+
+    background: #8fc7ff;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+.navbar-toggler.menu-open span:first-child {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.navbar-toggler.menu-open span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggler.menu-open span:last-child {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Keyboard focus */
+
+.navbar-brand:focus-visible,
+.nav-link:focus-visible,
+.nav-login:focus-visible,
+.nav-register:focus-visible,
+.navbar-toggler:focus-visible {
+    outline: 2px solid #80bdff;
+    outline-offset: 3px;
+}
+
+/* Tablet and mobile */
+
+@media (max-width: 850px) {
+    .navbar-inner {
+        min-height: 70px;
+        padding: 0 5%;
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .navbar-brand {
+        font-size: 23px;
+    }
+
+    .navbar-toggler {
+        display: flex;
+    }
+
+    .navbar-collapse {
+        display: none;
+        flex: 0 0 100%;
+        width: 100%;
+        padding: 15px 0 22px;
+
+        align-items: stretch;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .navbar-collapse.show {
+        display: flex;
+    }
+
+    .navbar-links {
+        width: 100%;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: 13px 15px;
+    }
+
+    .nav-link.active::after {
+        left: 15px;
+        right: auto;
+        bottom: 6px;
+        width: 25px;
+    }
+
+    .navbar-actions {
+        width: 100%;
+        padding-top: 13px;
+        border-top: 1px solid #293a65;
+        justify-content: flex-start;
+    }
+
+    .nav-login,
+    .nav-register {
+        flex: 1;
+        text-align: center;
+    }
+}
+
+@media (max-width: 400px) {
+    .navbar-inner {
+        padding: 0 16px;
+    }
+
+    .navbar-brand {
+        font-size: 21px;
+    }
+
+    .navbar-actions {
+        gap: 8px;
+    }
+
+    .nav-login,
+    .nav-register {
+        padding: 11px 12px;
+        font-size: 12px;
+    }
+}
