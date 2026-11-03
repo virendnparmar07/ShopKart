@@ -1,9 +1,10 @@
 
 import { useEffect, useState } from "react";
 import ProductCard from "../Components/ProductCard";
+import Footer from "../Components/Footer";
 import "./Product.css";
 
-function Product() {
+function Product({ dispatch }) {
     const [products, setProducts] = useState([]);
     const [search, setSearch] = useState("");
     const [loading, setLoading] = useState(true);
@@ -20,7 +21,9 @@ function Product() {
             try {
                 const response = await fetch(
                     "https://fakestoreapi.noksha.dev/api/products",
-                    { signal: controller.signal }
+                    {
+                        signal: controller.signal
+                    }
                 );
 
                 if (!response.ok) {
@@ -34,7 +37,12 @@ function Product() {
                     throw new Error("Invalid product data.");
                 }
 
-                setProducts(data);
+                const normalizedProducts = data.map((item) => ({
+                    ...item,
+                    id: item._id
+                }));
+
+                setProducts(normalizedProducts);
             } catch (err) {
                 if (err.name !== "AbortError") {
                     setError(
@@ -59,7 +67,6 @@ function Product() {
 
     return (
         <main className="products-page">
-            {/* Page heading */}
             <section className="products-header">
                 <div className="products-heading">
                     <span className="products-tag">
@@ -80,22 +87,26 @@ function Product() {
                     <span className="count-number">
                         {products.length}
                     </span>
+
                     <span className="count-label">
                         Products
                     </span>
                 </div>
             </section>
 
-            {/* Search bar */}
             <section className="products-toolbar">
                 <div className="product-search">
-                    <span className="search-icon">⌕</span>
+                    <span className="search-icon">
+                        ⌕
+                    </span>
 
                     <input
                         type="search"
                         placeholder="Search products..."
                         value={search}
-                        onChange={(e) => setSearch(e.target.value)}
+                        onChange={(e) =>
+                            setSearch(e.target.value)
+                        }
                         aria-label="Search products"
                     />
 
@@ -118,49 +129,67 @@ function Product() {
                 </div>
             </section>
 
-            {/* Loading */}
             {loading && (
                 <div className="products-loading">
                     <div className="loading-spinner"></div>
-                    <p>Loading your products...</p>
+
+                    <p>
+                        Loading your products...
+                    </p>
                 </div>
             )}
 
-            {/* Error */}
             {!loading && error && (
                 <div className="products-message">
-                    <div className="message-icon">!</div>
-                    <h2>Couldn't load products</h2>
-                    <p>{error}</p>
+                    <div className="message-icon">
+                        !
+                    </div>
+
+                    <h2>
+                        Couldn't load products
+                    </h2>
+
+                    <p>
+                        {error}
+                    </p>
 
                     <button
                         type="button"
                         className="retry-btn"
-                        onClick={() => setRetry((prev) => prev + 1)}
+                        onClick={() =>
+                            setRetry((prev) => prev + 1)
+                        }
                     >
                         Try Again
                     </button>
                 </div>
             )}
 
-            {/* Product grid */}
             {!loading && !error && (
                 <>
                     {filteredProducts.length > 0 ? (
                         <div className="product-container">
-                            {filteredProducts.map((item) => (
+                            {filteredProducts.map((item, index) => (
                                 <ProductCard
-                                    key={item.id}
+                                    key={`${item.id}-${index}`}
                                     title={item.title}
                                     price={item.price}
                                     image={item.image}
+                                    product={item}
+                                    dispatch={dispatch}
                                 />
                             ))}
                         </div>
                     ) : (
                         <div className="products-message">
-                            <div className="message-icon">⌕</div>
-                            <h2>No products found</h2>
+                            <div className="message-icon">
+                                ⌕
+                            </div>
+
+                            <h2>
+                                No products found
+                            </h2>
+
                             <p>
                                 Try searching for another product.
                             </p>
@@ -168,7 +197,9 @@ function Product() {
                             <button
                                 type="button"
                                 className="retry-btn"
-                                onClick={() => setSearch("")}
+                                onClick={() =>
+                                    setSearch("")
+                                }
                             >
                                 Clear Search
                             </button>
@@ -176,7 +207,9 @@ function Product() {
                     )}
                 </>
             )}
+            <Footer />  
         </main>
+        
     );
 }
 

@@ -1,7 +1,6 @@
-
 import "./ProductCard.css";
 
-function ProductCard({ title, price, image }) {
+function ProductCard({ title, price, image, product, dispatch }) {
     const formattedPrice = Number(price);
 
     return (
@@ -24,6 +23,18 @@ function ProductCard({ title, price, image }) {
                     ? formattedPrice.toFixed(2)
                     : "N/A"}
             </p>
+
+            <button
+                className="add-cart-button"
+                onClick={() => {
+                    dispatch({
+                        type: "ADD_ITEM",
+                        payload: product
+                    });
+                }}
+            >
+                🛒 Add to Cart
+            </button>
         </div>
     );
 }

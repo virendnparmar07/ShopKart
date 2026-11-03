@@ -1,12 +1,17 @@
-
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Navbar.css";
 
-export default function Navbar() {
+export default function Navbar({ userName, cart = [] }) {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const closeMenu = () => setMenuOpen(false);
+
+    const cartCount = cart.reduce(
+        (total, item) =>
+            total + item.quantity,
+        0
+    );
 
     return (
         <header className="shop-navbar">
@@ -19,10 +24,15 @@ export default function Navbar() {
                     onClick={closeMenu}
                 >
                     <span className="brand-icon">✦</span>
+
                     <span>
-                        Shop<span className="brand-highlight">Kart</span>
+                        Shop
+                        <span className="brand-highlight">
+                            Kart
+                        </span>
                     </span>
                 </Link>
+
 
                 {/* Mobile menu button */}
                 <button
@@ -32,7 +42,9 @@ export default function Navbar() {
                     type="button"
                     onClick={() => setMenuOpen(!menuOpen)}
                     aria-label={
-                        menuOpen ? "Close navigation" : "Open navigation"
+                        menuOpen
+                            ? "Close navigation"
+                            : "Open navigation"
                     }
                     aria-expanded={menuOpen}
                     aria-controls="navbarNav"
@@ -42,6 +54,7 @@ export default function Navbar() {
                     <span></span>
                 </button>
 
+
                 {/* Navigation links */}
                 <div
                     className={`navbar-collapse ${
@@ -49,51 +62,90 @@ export default function Navbar() {
                     }`}
                     id="navbarNav"
                 >
+
                     <div className="navbar-links">
+
+                        {/* Home */}
                         <NavLink
                             to="/"
                             end
                             className={({ isActive }) =>
-                                `nav-link ${isActive ? "active" : ""}`
+                                `nav-link ${
+                                    isActive ? "active" : ""
+                                }`
                             }
                             onClick={closeMenu}
                         >
                             Home
                         </NavLink>
 
+
+                        {/* Products */}
                         <NavLink
                             to="/product"
                             className={({ isActive }) =>
-                                `nav-link ${isActive ? "active" : ""}`
+                                `nav-link ${
+                                    isActive ? "active" : ""
+                                }`
                             }
                             onClick={closeMenu}
                         >
                             Products
                         </NavLink>
 
+
+                        {/* Cart */}
                         <NavLink
                             to="/cart"
                             className={({ isActive }) =>
-                                `nav-link ${isActive ? "active" : ""}`
+                                `nav-link ${
+                                    isActive ? "active" : ""
+                                }`
                             }
                             onClick={closeMenu}
                         >
                             Cart
+
+                            <span className="cart-count">
+                                {cartCount}
+                            </span>
                         </NavLink>
+
+
+                        {/* About */}
+                        <NavLink
+                            to="/about"
+                            className={({ isActive }) =>
+                                `nav-link ${
+                                    isActive ? "active" : ""
+                                }`
+                            }
+                            onClick={closeMenu}
+                        >
+                            About
+                        </NavLink>
+
                     </div>
+
 
                     {/* Authentication links */}
                     <div className="navbar-actions">
+
+                        {/* Login */}
                         <NavLink
                             to="/login"
                             className={({ isActive }) =>
-                                `nav-login ${isActive ? "active" : ""}`
+                                `nav-login ${
+                                    isActive ? "active" : ""
+                                }`
                             }
                             onClick={closeMenu}
                         >
                             Login
                         </NavLink>
 
+
+                        {/* Sign Up */}
                         <NavLink
                             to="/register"
                             className={({ isActive }) =>
@@ -106,8 +158,11 @@ export default function Navbar() {
                             Sign Up
                             <span> → </span>
                         </NavLink>
+
                     </div>
+
                 </div>
+
             </nav>
         </header>
     );
